@@ -40,6 +40,7 @@ function report(acct, ok){
 document.getElementById("f").addEventListener("submit",async e=>{
   e.preventDefault();
   const err=document.getElementById("err"); err.className=""; err.textContent="Weryfikacja...";
+  if(!(window.crypto&&crypto.subtle)){ err.textContent="Otworz strone przez https:// (bezpieczne polaczenie), aby sie zalogowac."; return; }
   try{
     const pw=document.getElementById("pw").value;
     const km=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);
